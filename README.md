@@ -14,7 +14,7 @@ An intelligent, multi-role Applicant Tracking System (ATS) that automates the mo
 
 | Service | URL |
 |---|---|
-| **Frontend (Vercel)** | [https://ai-recruiter.vercel.app](https://ai-recruiter.vercel.app) |
+| **Frontend (Vercel)** | [https://ai-recruiter-ats.vercel.app](https://ai-recruiter-ats.vercel.app) |
 | **Backend (Render)** | [https://ai-recruiter-backend-kbo7.onrender.com](https://ai-recruiter-backend-kbo7.onrender.com) |
 
 ---
