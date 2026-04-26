@@ -1,0 +1,10 @@
+# Ignore node_modules in any folder
+node_modules/
+
+# Ignore frontend Next.js builds
+frontend/.next/
+
+# Ignore ALL secret environment variables in any folder
+.env
+.env.local
+*.env
