@@ -151,21 +151,29 @@ exports.draftPersonalizedEmail = async (candidate, jd) => {
 // ==========================================
 exports.scoreInterest = async (replyText) => {
   try {
-    const model = genAI.getGenerativeModel({ 
+    const model = genAI.getGenerativeModel({
       model: 'gemini-2.5-flash-lite',
       generationConfig: { responseMimeType: "application/json" }
     });
 
     const prompt = `
-    Analyze this email reply from a candidate.
-    
+    Analyze this email reply from a job candidate.
+
     Reply: "${replyText}"
 
-    Output strict JSON:
+    Output strict JSON matching this exact schema:
     {
-      "interestScore": 90,
-      "summary": "1 sentence summarizing their response"
+      "interestScore": 85,
+      "replySummary": "1 sentence summarizing their response",
+      "interestRationale": "1-2 sentences explaining the score",
+      "nonNegotiablesMet": true
     }
+
+    Rules:
+    - interestScore: 0-100 integer. High = enthusiastic and available. Low = uninterested or unavailable.
+    - replySummary: short neutral summary of what they said.
+    - interestRationale: why you gave that score.
+    - nonNegotiablesMet: true if they expressed openness to the role, false if they declined or raised hard blockers.
     `;
 
     const result = await model.generateContent(prompt);
@@ -174,6 +182,11 @@ exports.scoreInterest = async (replyText) => {
 
   } catch (error) {
     console.error("Gemini API Error (Interest Scoring):", error.message);
-    return { interestScore: null, summary: "Failed to analyze reply via AI." };
+    return {
+      interestScore: null,
+      replySummary: "Failed to analyze reply via AI.",
+      interestRationale: null,
+      nonNegotiablesMet: null
+    };
   }
 };

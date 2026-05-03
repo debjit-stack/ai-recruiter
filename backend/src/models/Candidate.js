@@ -5,31 +5,32 @@ const CandidateSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String },
   rawProfileText: { type: String, required: true },
-  
-  // Tagged to a specific Job Description
+
   roleTitle: { type: String, required: true },
-  
-  // Pipeline Tracking
-  status: { 
-    type: String, 
-    // 👇 THE FIX: The strict list of all allowed statuses in our new pipeline
+
+  status: {
+    type: String,
     enum: [
-      'Pending Scoring', 
-      'Scored', 
-      'Scoring Failed', 
-      'Skipped - Mismatch', 
-      'Outreach Sent', 
+      'Pending Scoring',
+      'Scored',
+      'Scoring Failed',
+      'Skipped - Mismatch',
+      'Outreach Sent',
       'Replied'
-    ], 
-    default: 'Pending Scoring' 
+    ],
+    default: 'Pending Scoring'
   },
-  
-  // AI Evaluations
+
+  // AI Match Evaluation
   matchScore: { type: Number, default: null },
   matchRationale: { type: String },
+
+  // AI Interest Evaluation (reply scoring)
   interestScore: { type: Number, default: null },
-  replySummary: { type: String },
-  
+  interestRationale: { type: String },   // FIX: was missing from schema
+  replySummary: { type: String },         // FIX: was missing from schema
+  nonNegotiablesMet: { type: Boolean },   // FIX: was missing from schema
+
   createdAt: { type: Date, default: Date.now }
 });
 
